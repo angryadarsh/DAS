@@ -4,14 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const id = calendarEl.dataset.id;
 
     // Days mapping for FullCalendar
-    const dayMap = {
-      sun: 0,
-      mon: 1, 
-      tue: 2, 
-      wed: 3, 
-      thu: 4, 
-      fri: 5, 
-      sat: 6
+    const dayMap = { sun: 0,mon: 1,  tue: 2, wed: 3, thu: 4, fri: 5,  sat: 6
     };
     const dayHours = {};
     // Determine working days & calculate min/max time
@@ -26,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hiddenDays.push(dayIndex);
         } else {
            dayHours[dayIndex] = { start, end };
-            // Adjust global min/max if needed
+            // Adjust global min/max 
             if (start < minTime) minTime = start;
             if (end > maxTime) maxTime = end;
         }

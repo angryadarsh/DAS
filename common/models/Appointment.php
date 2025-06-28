@@ -36,7 +36,7 @@ class Appointment extends \yii\db\ActiveRecord
     const STATUS_BOOKED = 'booked';
     const STATUS_CANCELLED = 'cancelled';
     const STATUS_COMPLETED = 'completed';
-    const CREATED_BY_USER = 'user';
+    const CREATED_BY_USER = 'patient';
     const CREATED_BY_DOCTOR = 'doctor';
 
     /**

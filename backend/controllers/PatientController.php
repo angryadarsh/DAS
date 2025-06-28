@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\components\Helper;
 use yii\helpers\ArrayHelper;
+use common\models\Appointment;
 
 class PatientController extends Controller
 {
@@ -52,7 +53,8 @@ class PatientController extends Controller
 
     public function actionViewAppointments($id)
     {
-        $model = User::findOne($id);
-        return $this->render('view_appointments',['model'=>$model]);
+        $appointments = Appointment::find()->with(['user', 'doctor', 'clinic','doctorDetails'])->where(['user_id' => $id])->asArray()->all();
+        $user = User::find()->where(['id' => $id])->one();
+        return $this->render('view_appointments',['appointments'=>$appointments,'user'=>$user]);
     }
 }

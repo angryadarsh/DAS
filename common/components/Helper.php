@@ -7,6 +7,8 @@ use yii\httpclient\Client;
 use common\models\Clinic;
 use common\models\User;
 use yii\helpers\ArrayHelper;
+use common\models\Doctor;
+use common\models\Appointment;
 
 class Helper
 {
@@ -87,6 +89,35 @@ class Helper
             'u.role'       => 'doctor',
         ])
         ->all();
+    }
+
+    public static function getDays($id){
+        $doctorSchedules = Doctor::find()->where(['user_id' => $id])->with('doctorSchedules')->one();
+        $days = [];
+        if($doctorSchedules->doctorSchedules){
+            foreach ($doctorSchedules->doctorSchedules as $key => $value) {
+                $days[$value->day_of_week] = [$value->start_time,$value->end_time,$value->is_holiday];
+            }
+        }
+        return $days;
+    }
+
+    public static function getBookedSlots($id){
+        $appointments = Appointment::find()->where(['doctor_id' => $id])->asArray()->all();
+        $data = [];
+        if ($appointments) {
+            foreach ($appointments as $key => $value) {
+              $data[] = [
+                "title" => $value['status'] ." Total Duration ". $value['duration_minutes'],
+                "start" => $value['appointment_date'] . " " . $value['start_time'],
+                "end" => $value['appointment_date'] . " " . $value['end_time'],
+                "color" => "sky-400"
+              ];
+            }
+           
+        }
+        
+        return $data ;
     }
 
 }

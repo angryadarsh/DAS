@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="w-full bg-gray-100 dark:bg-white-900 px-2 pt-4">
     <div class="w-[calc(100%-5px)] mx-auto">
         
-        <table id="patient-list" class="display dataTable w-full">
+        <table id="appointment-list" class="display dataTable w-full">
             <thead>
                 <tr>
                     <th>#</th>
@@ -23,14 +23,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>Status</th>
                 </tr>
             </thead>
-            
+            <tbody>
+            <?php $count = 0;
+            foreach ($appointments as $model):
+                $count ++;
+                ?>
+                
+                <tr>
+                    <td><?= $count ?></td>
+                    <td><?= $model['doctor']['username'] ?? 'N/A' ?></td>
+                    <td><?= $model['doctorDetails']['specialization'] ?? 'N/A' ?></td>
+                    <td><?= $model['appointment_date'] ?? 'N/A' ?></td>
+                    <td><?= $model['start_time'] ?? 'N/A' ?></td>
+                    <td><?= $model['user']['username'] ?? 'N/A' ?></td>
+                    <td><?= $model['status'] ?? 'N/A' ?></td>
+                    
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
         </table>
     </div>
 </div>  
 <?php 
 $this->registerJs('
     $(document).ready(function() {
-        $("#patient-list").DataTable();
+        $("#appointment-list").DataTable();
     })
     
 '); ?>

@@ -23,7 +23,7 @@ class m250623_111130_create_appointment_table extends Migration
             'duration_minutes' => $this->integer()->defaultValue(10),
             'price' => $this->integer()->notNull(),
             'status' => "ENUM('booked', 'cancelled', 'completed') DEFAULT 'booked'",
-            'created_by' => "ENUM('user','doctor') NOT NULL",
+            'created_by' => "ENUM('patient', 'doctor') DEFAULT 'patient'",
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
         ]);

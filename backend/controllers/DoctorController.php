@@ -216,8 +216,8 @@ class DoctorController extends Controller
 
     public function actionViewAllAppointments()
     {
-       
-        return $this->render('view_all_appointments');
+        $appointments = Appointment::find()->with(['user', 'doctor', 'clinic','doctorDetails'])->asArray()->all();
+        return $this->render('view_all_appointments',['appointments'=>$appointments]);
     }
 
     protected function findModel($id)

@@ -110,23 +110,16 @@ class AppointmentController extends Controller
     }   
     public function actionGetBookedSlots(){
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-       $appointments = [
-            [
-                "title" => "Booked",
-                "start" => "2025-06-24T10:00:00",
-                "end" => "2025-06-24T10:30:00",
-                "color" => "red"
-            ],
-            [
-                "title" => "Booked",
-                "start" => "2025-06-24T14:00:00",
-                "end" => "2025-06-24T14:30:00",
-                "color" => "red"
-            ]
-        ];                               
-        return  $appointments ;
+        $doctorId = Yii::$app->request->get('id');
+        $data = Helper::getBookedSlots($doctorId);
+        return $data ;
     }
 
+    public function actionGetDoctorSchedule($id){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $days = Helper::getDays($id);
+        return $days;
+    }
     public  function actionEditAppointment($id){
         try {
             $appointment = Appointment::findOne($id);
@@ -137,7 +130,8 @@ class AppointmentController extends Controller
 
             $clinic = Helper::getClinics();
             $doctors = [];
-
+            $data = Helper::getBookedSlots($appointment->doctor_id);
+            $days = Helper::getDays($appointment->doctor_id);
             if ($appointment->clinic_id) {
                 $doctors = \yii\helpers\ArrayHelper::map(
                     User::find()->where(['id' => $appointment->doctor_id])->all(), 
@@ -177,6 +171,8 @@ class AppointmentController extends Controller
                 'appointment' => $appointment,
                 'clinic' => $clinic,
                 'doctors' => $doctors,
+                'doctor_id' => $appointment->doctor_id,
+                'days' => $days,
             ]);
 
         } catch (\Throwable $e) {

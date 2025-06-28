@@ -8,6 +8,7 @@
             <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Dr. <?= $appointment->doctor->username ?></div>
             <p class="mt-1 text-lg font-medium text-black">Specialty: <?= $appointment->doctorDetails->specialization ?></p>
             <p class="mt-2 text-gray-500">Booked on <?= Yii::$app->formatter->asDate($appointment->created_at) ?></p>
+            <p class="mt-2 text-gray-500">Booking Date <?= $appointment->appointment_date ?></p>
             <p class="mt-2 text-gray-500">Start Time <?= $appointment->start_time ?></p>
             <p class="mt-2 text-gray-500">End Time <?= $appointment->end_time ?></p>
             <p class="mt-2 text-gray-500">Total Duration <?= $appointment->duration_minutes ?></p>
