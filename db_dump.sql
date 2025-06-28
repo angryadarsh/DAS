@@ -19,8 +19,8 @@
 -- Table structure for table `appointment`
 --
 
-CREATE DATABASE IF NOT EXISTS DAS;
-use DAS;
+CREATE DATABASE IF NOT EXISTS das;
+use das;
 
 DROP TABLE IF EXISTS `appointment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
